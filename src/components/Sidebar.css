@@ -1,0 +1,276 @@
+.sidebar {
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: 280px;
+  height: 100vh;
+
+  background: #202020;
+
+  border-right: 1px solid #363636;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 100;
+
+  font-family: "DM Sans", sans-serif;
+}
+
+
+/* =========================================
+   LOGO
+========================================= */
+
+.sidebar-logo {
+  width: 100%;
+  height: 145px;
+
+  padding: 0 30px;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-logo img {
+  width: 190px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.sidebar-navigation {
+  flex: 1;
+
+  padding: 35px 20px 20px;
+
+  overflow-y: auto;
+}
+
+.sidebar-section-label {
+  color: #777777;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 2px;
+
+  margin: 0 12px 18px;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+.sidebar-link {
+  width: 100%;
+  min-height: 48px;
+
+  padding: 0 12px;
+
+  margin-bottom: 5px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  color: #777777;
+
+  border-left: 3px solid transparent;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  color: #ffffff;
+
+  background: #272727;
+}
+
+.sidebar-link.active {
+  color: #ffffff;
+
+  background: #292929;
+
+  border-left-color: #f04438;
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.sidebar-number {
+  width: 25px;
+
+  flex-shrink: 0;
+
+  color: #555555;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+.sidebar-link.active .sidebar-number {
+  color: #f04438;
+}
+
+
+/* =========================================
+   NAME
+========================================= */
+
+.sidebar-name {
+  font-size: 12px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.sidebar-bottom {
+  padding: 20px;
+}
+
+.sidebar-line {
+  width: 100%;
+  height: 1px;
+
+  background: #363636;
+
+  margin-bottom: 18px;
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.sidebar-logout {
+  width: 100%;
+  height: 45px;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: transparent;
+
+  border: 1px solid #363636;
+
+  color: #777777;
+
+  font-family: "DM Sans", sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 1.5px;
+
+  transition: 0.2s ease;
+}
+
+.sidebar-logout:hover {
+  color: #ffffff;
+
+  border-color: #f04438;
+}
+
+.sidebar-logout strong {
+  color: #f04438;
+
+  font-size: 17px;
+
+  font-weight: 400;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.sidebar-footer {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #555555;
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .sidebar {
+    width: 220px;
+  }
+
+  .sidebar-logo {
+    padding: 0 20px;
+  }
+
+  .sidebar-logo img {
+    width: 160px;
+  }
+
+  .sidebar-navigation {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+
+@media (max-width: 700px) {
+
+  .sidebar {
+    width: 190px;
+  }
+
+  .sidebar-logo img {
+    width: 140px;
+  }
+
+  .sidebar-link {
+    gap: 8px;
+  }
+
+  .sidebar-name {
+    font-size: 11px;
+  }
+}

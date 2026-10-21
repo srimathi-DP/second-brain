@@ -1,0 +1,53 @@
+SECOND BRAIN TEST DOCUMENT
+Topic: The Water Cycle
+Purpose: Test whether a study assistant can accurately extract facts, summarize them, and generate answerable quiz questions.
+
+1. Evaporation
+Energy from the Sun warms water in oceans, lakes, rivers, and on land. Some liquid water changes into water vapour and enters the atmosphere. This process is called evaporation.
+
+2. Transpiration
+Plants absorb water through their roots. Some of that water moves through the plant and leaves the leaves as water vapour. This process is called transpiration.
+
+3. Condensation
+As water vapour rises, it can cool. The vapour changes into tiny liquid water droplets or ice crystals, forming clouds. This process is called condensation.
+
+4. Precipitation
+When droplets or ice crystals in clouds grow large enough, water may fall to the Earth's surface as rain, snow, sleet, or hail. This is called precipitation.
+
+5. Collection and runoff
+Water that reaches the ground may collect in lakes, rivers, and oceans. Some water flows over the land into waterways; this is called runoff. Some water soaks into the ground.
+
+6. Infiltration and groundwater
+Infiltration happens when water enters the soil. Some of this water moves through soil and rock and becomes groundwater. Groundwater can slowly flow and may eventually reach springs, rivers, or the ocean.
+
+Important relationships
+- The Sun provides much of the energy that drives evaporation.
+- Water can change between liquid, vapour, and ice during the water cycle.
+- The water cycle has no single starting point; its processes occur continuously.
+- Not all precipitation runs directly into rivers. Some infiltrates the ground, and some may be stored as snow or ice.
+
+Quick examples
+- A puddle becoming smaller on a sunny day is an example of evaporation.
+- Water droplets forming on the outside of a cold glass are an example of condensation of water vapour in the surrounding air.
+- Rain falling from clouds is precipitation.
+- Rainwater flowing along a road into a drain is runoff.
+- Water soaking into garden soil is infiltration.
+
+CHECK YOUR UNDERSTANDING
+1. What provides much of the energy that drives evaporation?
+2. What is the name of the process in which water vapour cools and forms tiny droplets or ice crystals?
+3. Name two forms of precipitation.
+4. What is runoff?
+5. What is infiltration?
+6. Does all precipitation flow directly into rivers? Explain using the document.
+
+ANSWER KEY
+1. Energy from the Sun.
+2. Condensation.
+3. Any two: rain, snow, sleet, hail.
+4. Water flowing over land into waterways.
+5. Water entering the soil.
+6. No. Some water infiltrates the ground, and some may be stored as snow or ice.
+
+ACCURACY CHECK FOR GENERATED OUTPUT
+A correct summary should mention that the Sun drives evaporation and that water moves through processes such as evaporation, condensation, precipitation, collection/runoff, and infiltration. It should not claim that all precipitation flows directly into rivers or that the water cycle has one fixed starting point.

@@ -1,0 +1,2098 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  background: #242424;
+  color: #ffffff;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* =========================================
+   APP
+========================================= */
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #242424;
+}
+
+/* =========================================
+   FULL-PAGE PROFESSIONAL BACKGROUND LINES
+========================================= */
+
+.curve-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.28;
+}
+
+.scrambled-lines {
+  position: absolute;
+  width: 120%;
+  height: 100%;
+  left: -10%;
+  top: 0;
+}
+
+.scrambled-lines path {
+  fill: none;
+  stroke: #f04438;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-one {
+  stroke-width: 20px;
+}
+
+.line-two {
+  stroke-width: 20px;
+  opacity: 100;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+  width: 100%;
+  height: 125px;
+  padding: 0 5vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+  z-index: 10;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  width: 230px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/*
+   REGISTER PAGE ONLY
+   Move the full SECOND BRAIN logo
+   slightly right and slightly down.
+   Size is NOT changed.
+*/
+
+.app:has(.main) .brand-logo {
+  position: relative;
+  right: 50px !important;
+  top: 1px;
+}
+
+/*
+   LOGIN PAGE
+   Keep the header logo in its normal position.
+*/
+
+.app:has(.signin-main) .brand-logo {
+  position: static;
+}
+
+/* =========================================
+   SIGN IN HEADER AREA
+========================================= */
+
+.signin-area {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.signin-area span {
+  color: #777777;
+  font-size: 20px;
+}
+
+.signin-button {
+  height: 38px;
+  padding: 0 22px;
+
+  background: transparent;
+  border: 1px solid #555555;
+
+  color: #ffffff;
+  font-size: 10px;
+
+  transition: 0.25s ease;
+}
+
+.signin-button:hover {
+  border-color: #f04438;
+  color: #f04438;
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main {
+  width: 100%;
+  min-height: calc(100vh - 152px);
+
+  padding: 75px 8vw 80px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 500px;
+
+  align-items: center;
+  gap: 90px;
+
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro {
+  max-width: 700px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 27px;
+
+  color: #777777;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.red-dot {
+  width: 14px;
+  height: 14px;
+
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  background: #f04438;
+}
+
+/* =========================================
+   MAIN HEADING
+========================================= */
+
+.intro h1 {
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: clamp(70px, 7vw, 105px);
+  line-height: 2;
+  letter-spacing: -6px;
+  font-weight: 600;
+
+  color: #f4f4f4;
+}
+
+.intro h1 span {
+  color: #f04438;
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.intro-text {
+  max-width: 540px;
+
+  margin-top: 34px;
+
+  color: #777777;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   FEATURES
+========================================= */
+
+.features {
+  max-width: 590px;
+  margin-top: 52px;
+}
+
+.feature {
+  min-height: 72px;
+
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+}
+
+.feature:last-child {
+  border-bottom: none;
+}
+
+.feature-number {
+  color: #f04438;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.feature-content h3 {
+  color: #eeeeee;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.feature-content p {
+  margin-top: 4px;
+
+  color: #666666;
+  font-size: 10px;
+}
+
+/* =========================================
+   REGISTER CARD
+========================================= */
+
+.register-card {
+  width: 100%;
+
+  padding: 38px;
+
+  position: relative;
+
+  background: #202020;
+
+  border: 1px solid #363636;
+
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================
+   RED SIDE LINE
+========================================= */
+
+.red-edge {
+  position: absolute;
+
+  width: 4px;
+  height: 150px;
+
+  left: -1px;
+  top: 38px;
+
+  background: #f04438;
+}
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.card-title-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.card-logo {
+  width: 150px;
+  height: 150px;
+
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding-bottom: 27px;
+
+  border-bottom: 1px solid #242424;
+}
+
+.card-label {
+  color: #f04438;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.card-heading h2 {
+  margin-top: 10px;
+
+  color: #ffffff;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  font-weight: 600;
+}
+
+.step-number {
+  color: #666666;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+form {
+  padding-top: 26px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #858585;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.field input {
+  width: 100%;
+  height: 48px;
+
+  padding: 0 14px;
+
+  outline: none;
+
+  background: #181818;
+
+  border: 1px solid #3a3a3a;
+
+  color: #ffffff;
+
+  font-size: 18px;
+
+  transition: 0.2s ease;
+}
+
+.field input::placeholder {
+  color: #555555;
+}
+
+.field input:focus {
+  border-color: #f04438;
+}
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 65px;
+}
+
+.show-password {
+  position: absolute;
+
+  right: 13px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  color: #666666;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.show-password:hover {
+  color: #f04438;
+}
+
+/* =========================================
+   TERMS
+========================================= */
+
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  margin-top: 3px;
+
+  color: #666666;
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.terms input {
+  margin-top: 2px;
+  accent-color: #f04438;
+}
+
+.terms a {
+  color: #aaaaaa;
+}
+
+/* =========================================
+   CREATE ACCOUNT
+========================================= */
+
+.create-button {
+  width: 100%;
+  height: 52px;
+
+  margin-top: 22px;
+  padding: 0 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border: none;
+
+  background: #f04438;
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: 0.25s ease;
+}
+
+.create-button:hover {
+  background: #ff5145;
+  transform: translateY(-1px);
+}
+
+.create-button strong {
+  font-size: 25px;
+  font-weight: 400;
+}
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin: 22px 0;
+}
+
+.divider span {
+  flex: 1;
+
+  height: 1px;
+
+  background: #353535;
+}
+
+.divider small {
+  color: #555555;
+
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   GOOGLE
+========================================= */
+
+.google-button {
+  width: 100%;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  background: #292929;
+
+  border: 1px solid #3a3a3a;
+
+  color: #dddddd;
+
+  font-size: 15px;
+
+  transition: 0.2s ease;
+}
+
+.google-button:hover {
+  background: #303030;
+  border-color: #555555;
+}
+
+.google-icon {
+  width: 21px;
+  height: 21px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #4285f4;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================
+   CARD FOOTER
+========================================= */
+
+.card-note {
+  margin-top: 20px;
+
+  color: #555555;
+
+  text-align: center;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+  width: 100%;
+  min-height: 60px;
+
+  padding: 0 7vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+
+  z-index: 5;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+  color: #505050;
+
+  font-size: 8px;
+  letter-spacing: 1.2px;
+}
+
+.footer span:first-child {
+  color: #777777;
+  font-weight: 600;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr) 430px;
+
+    gap: 55px;
+
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
+
+  .intro h1 {
+    font-size: 70px;
+    letter-spacing: -4px;
+  }
+}
+
+/* =========================================
+   MOBILE / SMALL SCREEN
+========================================= */
+
+@media (max-width: 850px) {
+  .main {
+    grid-template-columns: 1fr;
+
+    padding-top: 55px;
+    padding-bottom: 70px;
+  }
+
+  .intro {
+    max-width: 680px;
+  }
+
+  .register-card {
+    max-width: 520px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .header {
+    height: 80px;
+    padding: 0 5vw;
+  }
+
+  .brand-logo {
+    width: 170px;
+  }
+
+  .signin-area span {
+    display: none;
+  }
+
+  .main {
+    padding: 45px 5vw 60px;
+  }
+
+  .intro h1 {
+    font-size: 55px;
+    letter-spacing: -3px;
+  }
+
+  .intro-text {
+    font-size: 12px;
+  }
+
+  .register-card {
+    padding: 28px;
+  }
+
+  .card-heading h2 {
+    font-size: 28px;
+  }
+
+  .footer {
+    min-height: auto;
+
+    padding: 20px 5vw;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+
+  .footer span:nth-child(2) {
+    display: none;
+  }
+}
+
+/* =========================================
+   SIGN IN PAGE
+========================================= */
+
+.signin-main {
+  width: 100%;
+
+  min-height: calc(100vh - 152px);
+
+  padding: 75px 8vw 80px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+.signin-card {
+  width: 100%;
+
+  max-width: 520px;
+
+  padding: 38px;
+
+  position: relative;
+
+  background: #202020;
+
+  border: 1px solid #363636;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.signin-card .red-edge {
+  position: absolute;
+
+  width: 4px;
+
+  height: 200px;
+
+  left: -1px;
+
+  top: 38px;
+
+  background: #f04438;
+}
+
+.signin-title-area {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  padding-bottom: 27px;
+
+  border-bottom: 1px solid #363636;
+}
+
+.signin-logo {
+  width: 175px;
+
+  height: 200px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+}
+
+.signin-label {
+  margin: 8px 0 10px;
+
+  color: #f04438;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.signin-title-area h1 {
+  margin: 0;
+
+  color: #f4f4f4;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 34px;
+
+  line-height: 1.05;
+
+  letter-spacing: -1.5px;
+
+  font-weight: 600;
+}
+
+.signin-form {
+  padding-top: 26px;
+}
+
+.signin-field {
+  margin-bottom: 20px;
+}
+
+.signin-field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #f4f4f4;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.5px;
+}
+
+.signin-field input {
+  width: 100%;
+
+  height: 48px;
+
+  padding: 0 14px;
+
+  box-sizing: border-box;
+
+  background: #181818;
+
+  border: 1px solid #3a3a3a;
+
+  outline: none;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 15px;
+}
+
+.signin-field input:focus {
+  border-color: #f04438;
+}
+
+.signin-field input::placeholder {
+  color: #666;
+}
+
+.forgot-password {
+  text-align: right;
+
+  margin-top: -7px;
+
+  margin-bottom: 22px;
+}
+
+.forgot-password button {
+  border: none;
+
+  background: transparent;
+
+  color: #888;
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+.forgot-password button:hover {
+  color: #f04438;
+}
+
+.signin-button {
+  width: 100%;
+
+  height: 52px;
+
+  border: none;
+
+  background: #f04438;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.signin-button:hover {
+  background: #d9362c;
+}
+
+.signin-divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin: 24px 0;
+
+  color: #666;
+
+  font-size: 10px;
+
+  letter-spacing: 1px;
+}
+
+.signin-divider::before,
+.signin-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #363636;
+}
+
+.google-signin-button {
+  width: 100%;
+
+  height: 50px;
+
+  border: 1px solid #3a3a3a;
+
+  background: #181818;
+
+  color: #f4f4f4;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  transition: 0.2s ease;
+}
+
+.google-signin-button:hover {
+  border-color: #f04438;
+}
+
+.google-symbol {
+  font-size: 18px;
+
+  font-weight: 700;
+}
+
+.signin-register-text {
+  margin: 25px 0 0;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+.signin-register-text button {
+  border: none;
+
+  background: transparent;
+
+  color: #f04438;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.signin-register-text button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   SIGN IN RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .signin-title-area {
+    gap: 14px;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: flex-start;
+
+    padding-left: 20px;
+  }
+
+  .signin-logo {
+    width: 175px;
+
+    height: 200px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+  }
+}
+/* =========================================
+   LOGIN PAGE - HEADER LOGO
+========================================= */
+
+.app:has(.signin-main) .header .brand {
+  transform: translateX(45px);
+}
+
+.app:has(.signin-main) .header .brand-logo {
+  width: 205px;
+  height: auto;
+  position: relative;
+  top: 15px;
+}
+
+.app:has(.signin-main) .header .brand-logo {
+  width: 205px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  position: static;
+  transform: none;
+  margin: 0;
+}
+/* =========================================
+   LOGIN PAGE - HEADER LOGO POSITION
+   ========================================= */
+
+/* Move ONLY the full SECOND BRAIN header logo */
+body:has(.signin-main) .header .brand {
+  position: relative;
+  left: 30px;
+  top: 10px;
+}
+
+/* Keep the logo's original size */
+body:has(.signin-main) .header .brand-logo {
+  width: 205px !important;
+  height: auto !important;
+  display: block;
+  object-fit: contain;
+  position: static !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+/* ==========================================
+   LOGIN PAGE - HEADER LOGO POSITION
+   ========================================== */
+
+/* Only the FULL SECOND BRAIN logo in the login header */
+body:has(.signin-main) img[alt="Second Brain"]:not(.signin-logo) {
+  position: relative !important;
+
+  /* horizontal position */
+  left: 30px !important;
+
+  /* vertical position */
+  top: 30px !important;
+
+  /* KEEP ORIGINAL SIZE */
+  width: 250px !important;
+  height: auto !important;
+
+  margin: 0 !important;
+  transform: none !important;
+}
+/* =========================================
+   SECOND BRAIN APPLICATION SHELL
+========================================= */
+
+.second-brain-app {
+  min-height: 100vh;
+
+  background: #242424;
+
+  color: #ffffff;
+
+  font-family: "DM Sans", sans-serif;
+}
+
+
+.second-brain-content {
+  min-height: 100vh;
+
+  margin-left: 280px;
+
+  padding: 50px 60px;
+
+  position: relative;
+
+  overflow-x: hidden;
+}
+
+
+.second-brain-content h1 {
+  margin: 0 0 12px;
+
+  color: #f4f4f4;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 52px;
+
+  line-height: 1;
+
+  letter-spacing: -2px;
+}
+
+
+.second-brain-content p {
+  color: #777777;
+
+  font-size: 14px;
+}
+
+
+@media (max-width: 900px) {
+
+  .second-brain-content {
+    margin-left: 220px;
+
+    padding: 40px;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .second-brain-content {
+  min-height: 100vh;
+  width: auto;
+  margin-left: 280px;
+  padding: 50px 60px;
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+}
+/* Full-width content area without changing sidebar width */
+.second-brain-app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* FULL-SCREEN SECOND BRAIN CONTENT */
+.second-brain-app {
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.second-brain-content {
+  display: block;
+  width: auto;
+  min-width: 0;
+  min-height: 100vh;
+  margin-left: 280px;
+  padding: 50px 60px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Remove width restrictions from direct content wrappers */
+.second-brain-content > div,
+.second-brain-content > section,
+.second-brain-content .page-container,
+.second-brain-content .materials-container,
+.second-brain-content .materials-content,
+.second-brain-content .content-wrapper {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Preserve existing responsive sidebar spacing */
+@media (max-width: 900px) {
+  .second-brain-content {
+    margin-left: 220px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  .second-brain-content {
+    margin-left: 190px;
+    padding: 30px 20px;
+  }
+}
+.summaries-page {
+  width: 100%;
+  min-width: 0;
+  padding: 32px;
+  color: #f4f4f4;
+  font-family: "DM Sans", sans-serif;
+}
+
+.summaries-header {
+  margin-bottom: 32px;
+}
+
+.summaries-eyebrow {
+  color: #f04438;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.summaries-header h1 {
+  margin: 14px 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(36px, 5vw, 54px);
+  letter-spacing: -1.5px;
+}
+
+.summaries-header h1 span {
+  color: #f04438;
+}
+
+.summaries-header p,
+.summaries-state p,
+.summaries-empty p {
+  color: #aaa;
+  line-height: 1.8;
+}
+
+.summaries-state,
+.summaries-empty {
+  padding: 28px;
+  background: #1e1e1e;
+  border: 1px solid #393939;
+}
+
+.summaries-error {
+  border-left: 3px solid #f04438;
+}
+
+.summaries-empty {
+  text-align: center;
+  padding: 56px 24px;
+}
+
+.summaries-empty-icon {
+  color: #f04438;
+  font-size: 32px;
+}
+
+.summaries-empty h2 {
+  color: #f4f4f4;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.summaries-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.summary-card {
+  min-width: 0;
+  padding: 24px;
+  background: #1e1e1e;
+  border: 1px solid #393939;
+  border-top: 2px solid #f04438;
+  overflow-wrap: anywhere;
+}
+
+.summary-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.summary-number {
+  color: #f04438;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 22px;
+}
+
+.summary-tag {
+  color: #999;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.summary-card h2 {
+  margin: 22px 0 14px;
+  font-family: "Space Grotesk", sans-serif;
+  font`-size: 21px;
+}
+
+.summary-content {
+  color: #c5c5c5;
+  font-size: 14px;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+.summary-missing,
+.summary-date {
+  color: #888;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .summaries-page {
+    padding: 20px 16px;
+  }
+
+  .summaries-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Second Brain workspace sections */
+.second-brain-app {
+  min-height: 100vh;
+  background: #202020;
+  color: #f5f0e8;
+  font-family: "DM Sans", sans-serif;
+}
+
+.sb-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 210px;
+  box-sizing: border-box;
+  background: #202020;
+  border-right: 1px solid #393939;
+  padding: 24px 15px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.sb-logo {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #171717;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.sb-logo-mark {
+  background: #f04438;
+  padding: 8px;
+  color: white;
+  font-size: 12px;
+}
+
+.sb-sidebar-label {
+  color: #a39a91;
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin: 30px 8px 14px;
+}
+
+.sb-nav {
+  display: grid;
+  gap: 4px;
+}
+
+.sb-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 36px;
+  border: 0;
+  border-left: 2px solid transparent;
+  padding: 10px 9px;
+  text-align: left;
+  background: transparent;
+  color: #a39a91;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.sb-nav-item > span {
+  color: #766d65;
+  font-size: 9px;
+}
+
+.sb-nav-item:hover,
+.sb-nav-item.active {
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.sb-nav-item.active {
+  border-left-color: #f04438;
+  font-weight: 700;
+}
+
+.sb-nav-item.active > span {
+  color: #f04438;
+}
+
+.sb-sidebar-bottom {
+  margin-top: auto;
+  border-top: 1px solid #393939;
+  padding-top: 14px;
+}
+
+.sb-logout {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 10px;
+  background: transparent;
+  border: 1px solid #393939;
+  color: #c6bdb3;
+  font-size: 9px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.sb-logout span {
+  color: #f04438;
+}
+
+.sb-sidebar-bottom small {
+  display: block;
+  margin-top: 16px;
+  font-size: 7px;
+  color: #766d65;
+}
+
+.sb-main {
+  position: relative;
+  min-height: 100vh;
+  margin-left: 210px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sb-background-curves {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sb-background-curves svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sb-background-curves path {
+  fill: none;
+  stroke: #a94336;
+  stroke-width: 7;
+  opacity: 0.42;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Keep the workspace above the curves. */
+.sb-sidebar,
+.sb-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Let the curves show through the sidebar and page background. */
+.sb-sidebar,
+.sb-main {
+  background-color: transparent !important;
+}
+
+.sb-background-curves path {
+  fill: none;
+  stroke: #f04438;
+  stroke-width: 5;
+}
+
+.sb-page-content {
+  position: relative;
+  z-index: 1;
+  padding: 48px clamp(20px, 5vw, 64px);
+  max-width: 1300px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.sb-page-header {
+  padding: 35px 0 45px;
+}
+
+.sb-page-header > span {
+  color: #f04438;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.sb-page-header h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -2px;
+  margin: 20px 0;
+}
+
+.sb-page-header h1 strong {
+  color: #f04438;
+}
+
+.sb-page-header > p,
+.sb-panel > p,
+.sb-panel > form + p {
+  color: #b7aea5;
+  line-height: 1.8;
+}
+
+.sb-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.sb-stat,
+.sb-panel {
+  min-width: 0;
+  background: rgba(28, 28, 28, 0.96);
+  border: 1px solid #393939;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.sb-stat span {
+  display: block;
+  color: #aaa097;
+  font-size: 11px;
+}
+
+.sb-stat strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 32px;
+  color: #f04438;
+}
+
+.sb-panel > h2 {
+  margin: 0 0 22px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 25px;
+}
+
+.sb-panel p {
+  overflow-wrap: anywhere;
+}
+
+.sb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.sb-actions button,
+.sb-panel > button {
+  background: #f04438;
+  color: white;
+  border: 1px solid #f04438;
+  padding: 12px 15px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.sb-actions button.sb-secondary {
+  background: transparent;
+  border-color: #514841;
+  color: #f5f0e8;
+}
+
+.sb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sb-form label {
+  color: #c7bdb3;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.sb-form input,
+.sb-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #141414;
+  border: 1px solid #48413b;
+  color: #f5f0e8;
+  padding: 14px;
+  font: inherit;
+}
+
+.sb-form input:focus,
+.sb-form textarea:focus {
+  outline: 1px solid #f04438;
+}
+
+.sb-form textarea {
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.sb-note {
+  padding: 20px 0;
+  border-top: 1px solid #393939;
+}
+
+.sb-note small {
+  color: #f04438;
+}
+
+.sb-note h3 {
+  overflow-wrap: anywhere;
+}
+
+.sb-note-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sb-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #393939;
+  cursor: pointer;
+}
+
+.sb-option input {
+  accent-color: #f04438;
+}
+
+.sb-correct {
+  color: #85d6a0 !important;
+}
+
+.sb-error {
+  color: #ff8177 !important;
+}
+
+.sb-result-score {
+  color: #f04438;
+  font-size: 64px;
+  font-weight: 800;
+}
+
+.sb-result-score span {
+  display: block;
+  color: #b7aea5;
+  font-size: 14px;
+}
+
+.sb-concept-map {
+  display: grid;
+  justify-items: center;
+  gap: 25px;
+  padding: 20px 0;
+}
+
+.sb-concept-node {
+  border: 1px solid #f04438;
+  background: #211c1a;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.sb-concept-main {
+  background: #f04438;
+  color: white;
+  font-weight: 800;
+}
+
+.sb-concept-branches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sb-er-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.sb-entity {
+  border: 1px solid #51413b;
+  min-width: 0;
+}
+
+.sb-entity h3 {
+  margin: 0;
+  padding: 13px;
+  background: #f04438;
+  color: white;
+  font-size: 12px;
+}
+
+.sb-entity p {
+  margin: 0;
+  padding: 10px 13px;
+  border-top: 1px solid #393939;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .sb-sidebar {
+    width: 170px;
+    padding: 16px 10px;
+  }
+
+  .sb-main {
+    margin-left: 170px;
+  }
+
+  .sb-page-content {
+    padding: 28px 16px;
+  }
+
+  .sb-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .sb-stat {
+    padding: 17px;
+  }
+
+  .sb-er-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sb-page-header h1 {
+    letter-spacing: -1px;
+  }
+}
+
+@media (max-width: 430px) {
+  .sb-sidebar {
+    width: 135px;
+    padding: 12px 7px;
+  }
+
+  .sb-main {
+    margin-left: 135px;
+  }
+
+  .sb-logo {
+    font-size: 8px;
+    gap: 4px;
+  }
+
+  .sb-nav-item {
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .sb-nav-item > span {
+    font-size: 8px;
+  }
+
+  .sb-page-content {
+    padding: 20px 12px;
+  }
+
+  .sb-panel {
+    padding: 15px;
+  }
+}
+.sb-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  background: #141414;
+  border: 1px solid #48413b;
+  color: #f5f0e8;
+  font: inherit;
+}
+
+.summaries-library {
+  margin-top: 38px;
+}
+
+.summaries-library-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.summaries-library-heading h2 {
+  margin: 9px 0 0;
+  color: #f4f4f4;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+}
+
+.summaries-count {
+  color: #999;
+  font-size: 9px;
+  letter-spacing: 1.4px;
+}
+
+.summaries-search {
+  max-width: 520px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+  .summaries-library-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.notes-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.notes-background-curves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+.notes-background-curves svg {
+  width: 100%;
+  height: 100%;
+  min-height: 1600px;
+}
+
+.notes-background-curves path {
+  fill: none;
+  stroke: #f04438;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.notes-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shared full-window background for authenticated pages. */
+.second-brain-app {
+  position: relative;
+  isolation: isolate;
+  overflow-x: visible !important;
+}
+
+.sb-global-curves {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+ opacity: 0.5;
+}
+
+.sb-global-curves svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sb-global-curves path {
+  fill: none;
+  stroke: #a94336;
+  stroke-width: 10px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+/* Keep the existing sidebar and page content above the shared background. */
+.second-brain-app > aside,
+.second-brain-app > .sb-sidebar {
+  z-index: 10;
+  background-color: rgba(32, 32, 32, 0.72) !important;
+}
+
+.second-brain-content {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+/* Materials and Notes now use the shared full-window curves above. */
+.materials-background-curves,
+.notes-background-curves {
+  display: none !important;
+}
+/* Hide decorative background curves throughout the workspace */
+.sb-global-curves,
+.sb-background-curves,
+.materials-background-curves,
+.notes-background-curves,
+.curve-background {
+  display: none !important;
+}
+/* Create-account page layout fix */
+.main {
+  box-sizing: border-box;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 460px);
+  gap: clamp(36px, 5vw, 72px);
+  padding: 48px clamp(24px, 5vw, 72px) 64px;
+}
+
+.intro {
+  min-width: 0;
+}
+
+.intro h1 {
+  font-size: clamp(56px, 6vw, 86px);
+  line-height: 1.08;
+  letter-spacing: -4px;
+}
+
+.intro-text {
+  margin-top: 24px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 100%;
+  margin-top: 32px;
+}
+
+.feature {
+  display: flex;
+  min-width: 0;
+  min-height: 82px;
+  align-items: flex-start;
+  padding: 14px 12px;
+  border: 1px solid #363636;
+}
+
+.feature-content {
+  min-width: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.register-card {
+  min-width: 0;
+}
+
+@media (max-width: 1050px) {
+  .main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .intro {
+    max-width: 720px;
+  }
+
+  .register-card {
+    width: 100%;
+    max-width: 620px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 36px 20px 48px;
+  }
+
+  .intro h1 {
+    font-size: clamp(48px, 13vw, 64px);
+    letter-spacing: -2.5px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
