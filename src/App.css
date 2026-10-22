@@ -1376,7 +1376,7 @@ body:has(.signin-main) img[alt="Second Brain"]:not(.signin-logo) {
 .summary-card h2 {
   margin: 22px 0 14px;
   font-family: "Space Grotesk", sans-serif;
-  font`-size: 21px;
+  font-size: 21px;
 }
 
 .summary-content {
