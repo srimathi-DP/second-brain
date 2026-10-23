@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const MATERIALS_API = "http://localhost:5000/api/materials";
+const MATERIALS_API = "https://second-brain-pl1v.onrender.com/api/materials";
 const FLOWCHARTS_KEY = "second-brain-flowcharts";
 const OLD_DIAGRAMS_KEY = "second-brain-diagrams";
 

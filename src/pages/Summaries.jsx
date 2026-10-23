@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const MATERIALS_API = "http://localhost:5000/api/materials";
+const MATERIALS_API = "https://second-brain-pl1v.onrender.com/api/materials";
 const SUMMARIES_KEY = "second-brain-summaries";
 
 const STOP_WORDS = new Set(

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../materials.css";
 const SERVER_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+  import.meta.env.VITE_API_URL || "https://second-brain-pl1v.onrender.com";
 const API_URL = `${SERVER_URL}/api/materials`;
 
 function Materials() {

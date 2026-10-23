@@ -21,7 +21,7 @@ export default function SignIn({ onRegister, onLogin }) {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://second-brain-pl1v.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim(), password }),
@@ -73,7 +73,7 @@ export default function SignIn({ onRegister, onLogin }) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/forgot-password",
+        "https://second-brain-pl1v.onrender.com/api/auth/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

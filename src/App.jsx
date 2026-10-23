@@ -67,7 +67,7 @@ function RegisterPage({ onSignIn }) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/register",
+        "https://second-brain-pl1v.onrender.com/api/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

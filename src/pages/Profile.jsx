@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const MATERIALS_API = "http://localhost:5000/api/materials";
+const MATERIALS_API = "https://second-brain-pl1v.onrender.com/api/materials";
 
 function readUser() {
   try {
