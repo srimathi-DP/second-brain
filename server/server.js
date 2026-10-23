@@ -7,7 +7,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const crypto = require("node:crypto");
 const { promisify } = require("node:util");
-
+const nodemailer = require("nodemailer");
 const User = require("./models/user");
 const materialsRouter = require("./routes/materials");
 
@@ -196,6 +196,108 @@ app.post("/api/auth/login", async (req, res) => {
   }
 });
 
+app.post("/api/auth/forgot-password", async (req, res) => {
+  const email = String(req.body.email || "").trim().toLowerCase();
+
+  const smtpHost = process.env.SMTP_HOST;
+  const smtpPort = Number(process.env.SMTP_PORT || 465);
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  const smtpFrom = process.env.SMTP_FROM;
+  const frontendUrl = process.env.FRONTEND_URL;
+
+  if (!smtpHost || !smtpUser || !smtpPass || !smtpFrom || !frontendUrl) {
+    return res.status(503).json({
+      message: "Password reset email is not configured on the server.",
+    });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        message: "If that email has an account, a reset link has been sent.",
+      });
+    }
+
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    user.passwordResetTokenHash = crypto
+      .createHash("sha256")
+      .update(rawToken)
+      .digest("hex");
+    user.passwordResetExpiresAt = new Date(Date.now() + 30 * 60 * 1000);
+    await user.save();
+
+    const resetUrl = new URL("/", frontendUrl);
+    resetUrl.searchParams.set("auth", "reset");
+    resetUrl.searchParams.set("token", rawToken);
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpPort === 465,
+      auth: { user: smtpUser, pass: smtpPass },
+    });
+
+    await transporter.sendMail({
+      from: smtpFrom,
+      to: user.email,
+      subject: "Reset your Second Brain password",
+      text: `This link expires in 30 minutes: ${resetUrl.toString()}`,
+      html: `<p>Use this link to reset your Second Brain password. It expires in 30 minutes.</p><p><a href="${resetUrl.toString()}">Reset password</a></p>`,
+    });
+
+    return res.json({
+      message: "If that email has an account, a reset link has been sent.",
+    });
+  } catch (error) {
+    console.error("Forgot-password error:", error.message);
+    return res.status(500).json({
+      message: "Could not send the reset email. Please try again later.",
+    });
+  }
+});
+
+app.post("/api/auth/reset-password", async (req, res) => {
+  const token = String(req.body.token || "");
+  const password = String(req.body.password || "");
+
+  if (!token || password.length < 8) {
+    return res.status(400).json({
+      message: "Use the reset link and enter a password of at least 8 characters.",
+    });
+  }
+
+  try {
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await User.findOne({
+      passwordResetTokenHash: tokenHash,
+      passwordResetExpiresAt: { $gt: new Date() },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "That reset link is invalid or expired. Request a new one.",
+      });
+    }
+
+    user.password = await makePasswordRecord(password);
+    user.passwordResetTokenHash = null;
+    user.passwordResetExpiresAt = null;
+    await user.save();
+
+    return res.json({
+      message: "Password updated. You can now sign in.",
+    });
+  } catch (error) {
+    console.error("Reset-password error:", error.message);
+    return res.status(500).json({
+      message: "Could not update the password.",
+    });
+  }
+});
 app.use("/api/materials", materialsRouter);
 
 app.get("/api/health", (req, res) => {

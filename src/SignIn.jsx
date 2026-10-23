@@ -73,8 +73,7 @@ export default function SignIn({ onRegister, onLogin }) {
 
     try {
       const response = await fetch(
-        "https://second-brain-pl1v.onrender.com/api/auth/login",
-        {
+"https://second-brain-pl1v.onrender.com/api/auth/forgot-password",        {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: cleanEmail }),

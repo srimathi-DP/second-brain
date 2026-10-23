@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import SignIn from "./SignIn";
 import Materials from "./pages/Materials";
+import ResetPassword from "./ResetPassword";
 
 const sections = [
   "Dashboard",
@@ -17,12 +18,21 @@ const sections = [
 ];
 
 function App() {
-  const [page, setPage] = useState(() =>
-    new URLSearchParams(window.location.search).get("auth") === "signin"
-      ? "signin"
-      : "register"
-  );
+  const [page, setPage] = useState(() => {
+    const auth = new URLSearchParams(window.location.search).get("auth");
+    if (auth === "reset") return "reset";
+    return auth === "signin" ? "signin" : "register";
+  });
 
+  if (page === "reset") {
+    return (
+      <ResetPassword
+        onDone={() => {
+          setPage("signin");
+        }}
+      />
+    );
+  }
   if (page === "signin") {
     return (
       <SignIn
@@ -40,6 +50,7 @@ function App() {
 }
 
 function RegisterPage({ onSignIn }) {
+  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
