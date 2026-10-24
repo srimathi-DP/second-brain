@@ -2140,3 +2140,104 @@ body:has(.signin-main) img[alt="Second Brain"]:not(.signin-logo) {
     margin-left: 135px;
   }
 }
+.sb-logo {
+  padding: 5px 10px;
+}
+
+.sb-sidebar-logo {
+  display: block;
+  width: 100%;
+  max-width: 165px;
+  height: 46px;
+  object-fit: contain;
+}
+@media (max-width: 760px) {
+  .second-brain-app > .sb-sidebar {
+    position: relative !important;
+    inset: auto;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 12px 14px;
+    border-right: 0;
+    border-bottom: 1px solid #393939;
+  }
+
+  .sb-logo {
+    width: fit-content;
+    max-width: 100%;
+    min-height: 48px;
+    justify-content: flex-start;
+  }
+
+  .sb-sidebar-label {
+    margin: 14px 0 6px;
+  }
+
+  .sb-nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sb-nav-item {
+    flex: 0 0 auto;
+    min-height: 40px;
+    gap: 7px;
+    padding: 8px 10px;
+    white-space: nowrap;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .sb-nav-item.active {
+    border-left-color: transparent;
+    border-bottom-color: #f04438;
+  }
+
+  .sb-sidebar-bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    padding-top: 8px;
+  }
+
+  .sb-sidebar-bottom small {
+    display: none;
+  }
+
+  .sb-logout {
+    width: auto;
+    gap: 16px;
+  }
+
+  .second-brain-app > .sb-main {
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .sb-page-content {
+    padding: 24px 16px;
+  }
+
+  .sb-page-header {
+    padding: 0 0 24px;
+  }
+
+  .sb-page-header h1 {
+    font-size: clamp(32px, 9vw, 46px);
+    line-height: 1.06;
+    letter-spacing: -1.5px;
+  }
+
+  .sb-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .sb-er-grid {
+    grid-template-columns: 1fr;
+  }
+}

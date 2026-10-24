@@ -696,9 +696,12 @@ function Workspace() {
         style={{ background: "rgba(32, 32, 32, 0.72)" }}
       >
         <div className="sb-logo">
-          <span className="sb-logo-mark">SB</span>
-          <span>SECOND BRAIN</span>
-        </div>
+  <img
+    src="/second-brain-logo.png"
+    alt="Second Brain"
+    className="sb-sidebar-logo"
+  />
+</div>
         <p className="sb-sidebar-label">WORKSPACE</p>
         <nav className="sb-nav">
           {sections.map((section, index) => (
