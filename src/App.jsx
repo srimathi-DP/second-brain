@@ -9,6 +9,9 @@ import "./App.css";
 import SignIn from "./SignIn";
 import Materials from "./pages/Materials";
 import Diagrams from "./pages/Diagrams";
+import Quiz from "./pages/Quiz";
+import Results from "./pages/Results";
+import Profile from "./pages/Profile";
 import ResetPassword from "./ResetPassword";
 
 const sections = [
@@ -19,7 +22,6 @@ const sections = [
   "Diagrams",
   "Quiz",
   "Results",
-  "ER Diagram",
   "Profile",
 ];
 
@@ -495,134 +497,13 @@ function Workspace() {
         return <Diagrams />;
 
       case "Quiz":
-        return (
-          <>
-            <PageHeader
-              eyebrow="06 / TEST YOURSELF"
-              title="Practice makes."
-              accent="Progress."
-              description="Answer the question and check your score."
-            />
-            <Panel title="Quick practice · Question 1 of 1">
-              <p>
-                <strong>
-                  Which data structure follows the FIFO principle?
-                </strong>
-              </p>
-              {[
-                ["A", "Stack"],
-                ["B", "Queue"],
-                ["C", "Tree"],
-                ["D", "Graph"],
-              ].map(([value, label]) => (
-                <label className="sb-option" key={value}>
-                  <input
-                    type="radio"
-                    name="sb-quiz"
-                    value={value}
-                    checked={quizAnswer === value}
-                    onChange={() => setQuizAnswer(value)}
-                    disabled={quizFinished}
-                  />
-                  <span>
-                    {value}. {label}
-                  </span>
-                </label>
-              ))}
-              {!quizFinished ? (
-                <button disabled={!quizAnswer} onClick={finishQuiz}>
-                  SUBMIT ANSWER ↗
-                </button>
-              ) : (
-                <>
-                  <p className={quizScore === 100 ? "sb-correct" : "sb-error"}>
-                    {quizScore === 100
-                      ? "Correct! Your score is 100/100."
-                      : "The correct answer is Queue. Your score is 0/100."}
-                  </p>
-                  <button
-                    onClick={() => {
-                      setQuizAnswer("");
-                      setQuizFinished(false);
-                      setQuizScore(null);
-                    }}
-                  >
-                    TRY AGAIN ↗
-                  </button>
-                </>
-              )}
-            </Panel>
-          </>
-        );
+        return <Quiz />;
 
       case "Results":
-        return (
-          <>
-            <PageHeader
-              eyebrow="07 / LEARNING PROGRESS"
-              title="See how far."
-              accent="You have come."
-              description="Review your latest quiz result."
-            />
-            <Panel title="Latest result">
-              <div className="sb-result-score">
-                {localStorage.getItem("second-brain-last-score") ?? "—"}
-                <span>
-                  {localStorage.getItem("second-brain-last-score") !== null
-                    ? "/100"
-                    : "No quiz yet"}
-                </span>
-              </div>
-              <button onClick={() => setActivePage("Quiz")}>
-                TAKE A QUIZ ↗
-              </button>
-            </Panel>
-          </>
-        );
-
-      case "ER Diagram":
-        return (
-          <>
-            <PageHeader
-              eyebrow="08 / DATABASE DESIGN"
-              title="The structure."
-              accent="Behind the system."
-              description="A conceptual view of the main data entities."
-            />
-            <Panel title="Entity relationship overview">
-              <div className="sb-er-grid">
-                <Entity title="USER" fields={["userId (PK)", "name", "email"]} />
-                <Entity
-                  title="MATERIAL"
-                  fields={["materialId (PK)", "userId (FK)", "fileName"]}
-                />
-                <Entity
-                  title="NOTE"
-                  fields={["noteId (PK)", "userId (FK)", "title", "content"]}
-                />
-                <Entity
-                  title="QUIZ RESULT"
-                  fields={["resultId (PK)", "userId (FK)", "score"]}
-                />
-              </div>
-            </Panel>
-          </>
-        );
+        return <Results onGoToQuiz={() => setActivePage("Quiz")} />;
 
       case "Profile":
-        return (
-          <>
-            <PageHeader
-              eyebrow="09 / YOUR ACCOUNT"
-              title="Your profile."
-              accent="Your workspace."
-              description="Your account and learning preferences."
-            />
-            <Panel title="Account">
-              <p>Your account information is managed by Firebase.</p>
-            </Panel>
-          </>
-        );
+        return <Profile onNavigate={setActivePage} />;
 
       default:
         return null;

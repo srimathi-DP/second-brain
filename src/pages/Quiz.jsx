@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const MATERIALS_API = "https://second-brain-pl1v.onrender.com/api/materials";
 const QUIZZES_KEY = "second-brain-quizzes";
+const RESULTS_KEY = "second-brain-quiz-results";
 
 const STOP_WORDS = new Set(
   "about after again against all also am an and any are as at be because been before being between both but by can could did do does doing down during each few for from further had has have having he her here hers herself him himself his how i if in into is it its itself just me more most my myself no nor not of off on once only or other our ours ourselves out over own same she should so some such than that the their theirs them themselves then there these they this those through to too under until up very was we were what when where which while who whom why will with would you your yours yourselves".split(
@@ -178,6 +179,32 @@ export default function Quiz() {
     }
   }
 
+  function submitQuiz() {
+    if (!currentQuiz || submitted) return;
+
+    const total = currentQuiz.questions.length;
+    const result = {
+      id: makeId(),
+      quizId: currentQuiz.id,
+      title: currentQuiz.title,
+      source: currentQuiz.source,
+      correct: score,
+      total,
+      percent: Math.round((score / total) * 100),
+      date: new Date().toLocaleString(),
+    };
+
+    try {
+      const previous = JSON.parse(localStorage.getItem(RESULTS_KEY) || "[]");
+      localStorage.setItem(RESULTS_KEY, JSON.stringify([result, ...(Array.isArray(previous) ? previous : [])]));
+      localStorage.setItem("second-brain-last-score", String(result.percent));
+      setMessage("Your result was saved from this material.");
+    } catch {
+      setMessage("Your score is shown here, but could not be saved to Results.");
+    }
+
+    setSubmitted(true);
+  }
   function saveQuiz() {
     if (!currentQuiz) return;
 
@@ -455,7 +482,7 @@ export default function Quiz() {
             <button
               className="quiz-button"
               type="button"
-              onClick={() => setSubmitted(true)}
+              onClick={submitQuiz}
               disabled={Object.keys(answers).length !== currentQuiz.questions.length}
             >
               CHECK ANSWERS

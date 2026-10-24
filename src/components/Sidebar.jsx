@@ -9,7 +9,8 @@ function Sidebar() {
     { number: "04", name: "Summaries", path: "/summaries" },
     { number: "05", name: "Diagrams", path: "/diagrams" },
     { number: "06", name: "Quiz", path: "/quiz" },
-    { number: "07", name: "Profile", path: "/profile" },
+    { number: "07", name: "Results", path: "/results" },
+    { number: "08", name: "Profile", path: "/profile" },
   ];
 
   function handleLogout() {

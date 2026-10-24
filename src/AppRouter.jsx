@@ -7,7 +7,7 @@ import Notes from "./pages/Notes";
 import Summaries from "./pages/Summaries";
 import Diagrams from "./pages/Diagrams";
 import Quiz from "./pages/Quiz";
-import ERDiagram from "./pages/ERDiagram";
+import Results from "./pages/Results";
 import Profile from "./pages/Profile";
 
 function AppRouter() {
@@ -31,11 +31,7 @@ function AppRouter() {
             <Route path="/summaries" element={<Summaries />} />
             <Route path="/diagrams" element={<Diagrams />} />
             <Route path="/quiz" element={<Quiz />} />
-            <Route
-              path="/results"
-              element={<Navigate to="/quiz" replace />}
-            />
-            <Route path="/er-diagram" element={<ERDiagram />} />
+            <Route path="/results" element={<Results />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
