@@ -8,6 +8,7 @@ import { auth } from "./firebase";
 import "./App.css";
 import SignIn from "./SignIn";
 import Materials from "./pages/Materials";
+import Diagrams from "./pages/Diagrams";
 import ResetPassword from "./ResetPassword";
 
 const sections = [
@@ -491,27 +492,7 @@ function Workspace() {
         return <Summaries />;
 
       case "Diagrams":
-        return (
-          <>
-            <PageHeader
-              eyebrow="05 / VISUAL LEARNING"
-              title="See the ideas."
-              accent="Connect the dots."
-              description="Understand how concepts relate to each other."
-            />
-            <Panel title="Concept map">
-              <div className="sb-concept-map">
-                <div className="sb-concept-node sb-concept-main">LEARNING</div>
-                <div className="sb-concept-branches">
-                  <div className="sb-concept-node">Understand</div>
-                  <div className="sb-concept-node">Practice</div>
-                  <div className="sb-concept-node">Remember</div>
-                </div>
-              </div>
-              <p>Example concept map.</p>
-            </Panel>
-          </>
-        );
+        return <Diagrams />;
 
       case "Quiz":
         return (
