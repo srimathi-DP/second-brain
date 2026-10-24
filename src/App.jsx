@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import Summaries from "./pages/Summaries";
 import { auth } from "./firebase";
 import "./App.css";
 import SignIn from "./SignIn";
@@ -487,25 +488,7 @@ function Workspace() {
         );
 
       case "Summaries":
-        return (
-          <>
-            <PageHeader
-              eyebrow="04 / UNDERSTAND"
-              title="Less noise."
-              accent="More meaning."
-              description="Review your study summaries."
-            />
-            <Panel title="Your summaries">
-              <p>
-                Upload a material in Materials to begin working with its
-                content. Your existing Summaries page can be connected here.
-              </p>
-              <button onClick={() => setActivePage("Materials")}>
-                GO TO MATERIALS ↗
-              </button>
-            </Panel>
-          </>
-        );
+        return <Summaries />;
 
       case "Diagrams":
         return (
