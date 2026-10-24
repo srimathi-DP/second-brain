@@ -1,5 +1,9 @@
-
 import { useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "./firebase";
 import "./App.css";
 import SignIn from "./SignIn";
 import Materials from "./pages/Materials";
@@ -19,25 +23,20 @@ const sections = [
 
 function App() {
   const [page, setPage] = useState(() => {
-    const auth = new URLSearchParams(window.location.search).get("auth");
-    if (auth === "reset") return "reset";
-    return auth === "signin" ? "signin" : "register";
+    const authPage = new URLSearchParams(window.location.search).get("auth");
+    if (authPage === "reset") return "reset";
+    return authPage === "signin" ? "signin" : "register";
   });
 
   if (page === "reset") {
-    return (
-      <ResetPassword
-        onDone={() => {
-          setPage("signin");
-        }}
-      />
-    );
+    return <ResetPassword onDone={() => setPage("signin")} />;
   }
+
   if (page === "signin") {
     return (
       <SignIn
         onRegister={() => setPage("register")}
-        onLogin={() => window.location.assign("/dashboard")}
+        onLogin={() => setPage("workspace")}
       />
     );
   }
@@ -50,7 +49,6 @@ function App() {
 }
 
 function RegisterPage({ onSignIn }) {
-  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,25 +75,13 @@ function RegisterPage({ onSignIn }) {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://second-brain-pl1v.onrender.com/api/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name.trim(),
-            email: email.trim(),
-            password,
-          }),
-        }
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email.trim(),
+        password
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        setMessage(data.message || "Registration failed.");
-        return;
-      }
+      await updateProfile(result.user, { displayName: name.trim() });
 
       setMessage("Account created successfully! Please sign in.");
       setName("");
@@ -105,8 +91,15 @@ function RegisterPage({ onSignIn }) {
 
       setTimeout(onSignIn, 1200);
     } catch (error) {
-      console.error(error);
-      setMessage("Cannot connect to the server. Check your backend.");
+      if (error.code === "auth/email-already-in-use") {
+        setMessage("An account with that email already exists.");
+      } else if (error.code === "auth/weak-password") {
+        setMessage("Choose a password with at least 6 characters.");
+      } else if (error.code === "auth/invalid-email") {
+        setMessage("Enter a valid email address.");
+      } else {
+        setMessage(error.message || "Could not create the account.");
+      }
     } finally {
       setLoading(false);
     }
@@ -139,7 +132,6 @@ function RegisterPage({ onSignIn }) {
             className="brand-logo"
           />
         </a>
-
         <div className="signin-area">
           <span>Already have an account?</span>
           <button
@@ -158,7 +150,6 @@ function RegisterPage({ onSignIn }) {
             <span className="red-dot" />
             YOUR PERSONAL LEARNING SPACE
           </div>
-
           <h1>
             Learn.
             <br />
@@ -166,12 +157,10 @@ function RegisterPage({ onSignIn }) {
             <br />
             Remember.
           </h1>
-
           <p className="intro-text">
-            Second Brain transforms your lectures and study materials
-            into structured knowledge, clear explanations and quizzes.
+            Second Brain transforms your lectures and study materials into
+            structured knowledge, clear explanations and quizzes.
           </p>
-
           <div className="features">
             <div className="feature">
               <div className="feature-content">01 / ORGANIZE YOUR MATERIALS</div>
@@ -187,7 +176,6 @@ function RegisterPage({ onSignIn }) {
 
         <section className="register-card">
           <div className="red-edge" />
-
           <div className="card-heading">
             <div className="card-title-area">
               <img
@@ -262,17 +250,13 @@ function RegisterPage({ onSignIn }) {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Repeat your password"
                   value={confirmPassword}
-                  onChange={(event) =>
-                    setConfirmPassword(event.target.value)
-                  }
+                  onChange={(event) => setConfirmPassword(event.target.value)}
                   required
                 />
                 <button
                   type="button"
                   className="show-password"
-                  onClick={() =>
-                    setShowConfirmPassword((value) => !value)
-                  }
+                  onClick={() => setShowConfirmPassword((value) => !value)}
                 >
                   {showConfirmPassword ? "HIDE" : "SHOW"}
                 </button>
@@ -281,9 +265,7 @@ function RegisterPage({ onSignIn }) {
 
             <label className="terms">
               <input type="checkbox" required />
-              <span>
-                I agree to the Terms of Service and Privacy Policy.
-              </span>
+              <span>I agree to the Terms of Service and Privacy Policy.</span>
             </label>
 
             <button
@@ -291,9 +273,7 @@ function RegisterPage({ onSignIn }) {
               className="create-button"
               disabled={loading}
             >
-              <span>
-                {loading ? "Creating account..." : "Create account"}
-              </span>
+              <span>{loading ? "Creating account..." : "Create account"}</span>
               <strong>→</strong>
             </button>
 
@@ -538,9 +518,7 @@ function Workspace() {
             />
             <Panel title="Concept map">
               <div className="sb-concept-map">
-                <div className="sb-concept-node sb-concept-main">
-                  LEARNING
-                </div>
+                <div className="sb-concept-node sb-concept-main">LEARNING</div>
                 <div className="sb-concept-branches">
                   <div className="sb-concept-node">Understand</div>
                   <div className="sb-concept-node">Practice</div>
@@ -677,10 +655,7 @@ function Workspace() {
               description="Your account and learning preferences."
             />
             <Panel title="Account">
-              <p>
-                Your account information is managed by the existing
-                authentication system.
-              </p>
+              <p>Your account information is managed by Firebase.</p>
             </Panel>
           </>
         );
@@ -729,9 +704,7 @@ function Workspace() {
           {sections.map((section, index) => (
             <button
               key={section}
-              className={`sb-nav-item ${
-                activePage === section ? "active" : ""
-              }`}
+              className={`sb-nav-item ${activePage === section ? "active" : ""}`}
               onClick={() => setActivePage(section)}
             >
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -742,10 +715,10 @@ function Workspace() {
         <div className="sb-sidebar-bottom">
           <button
             className="sb-logout"
-            onClick={() => {
-              if (window.confirm("Return to the sign-in page?")) {
-                window.location.reload();
-              }
+            onClick={async () => {
+              const { signOut } = await import("firebase/auth");
+              await signOut(auth);
+              setPageToSignIn();
             }}
           >
             LOG OUT <span>⟶</span>
@@ -759,6 +732,10 @@ function Workspace() {
       </main>
     </div>
   );
+}
+
+function setPageToSignIn() {
+  window.location.assign("/?auth=signin");
 }
 
 function PageHeader({ eyebrow, title, accent, description }) {
@@ -805,4 +782,3 @@ function Entity({ title, fields }) {
 }
 
 export default App;
-

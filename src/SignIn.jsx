@@ -1,4 +1,9 @@
 import { useState } from "react";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "./firebase";
 import "./App.css";
 
 export default function SignIn({ onRegister, onLogin }) {
@@ -21,28 +26,8 @@ export default function SignIn({ onRegister, onLogin }) {
     setLoading(true);
 
     try {
-      const response = await fetch("https://second-brain-pl1v.onrender.com/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        setMessage(data.message || "Sign in failed. Check your details.");
-        return;
-      }
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-      }
-
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
-
-      setMessage(`Welcome back${data.user?.name ? `, ${data.user.name}` : ""}!`);
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      setMessage("Welcome back!");
 
       window.setTimeout(() => {
         if (onLogin) {
@@ -51,8 +36,16 @@ export default function SignIn({ onRegister, onLogin }) {
           window.location.assign("/dashboard");
         }
       }, 500);
-    } catch {
-      setMessage("Cannot connect to the server. Check that the backend is running.");
+    } catch (error) {
+      if (
+        error.code === "auth/invalid-credential" ||
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        setMessage("Email or password is incorrect.");
+      } else {
+        setMessage(error.message || "Sign in failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -60,7 +53,6 @@ export default function SignIn({ onRegister, onLogin }) {
 
   async function handleForgotPassword() {
     setMessage("");
-
     const cleanEmail = email.trim();
 
     if (!cleanEmail) {
@@ -72,32 +64,16 @@ export default function SignIn({ onRegister, onLogin }) {
     setResetLoading(true);
 
     try {
-      const response = await fetch(
-"https://second-brain-pl1v.onrender.com/api/auth/forgot-password",        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: cleanEmail }),
-        }
-      );
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        setMessage(
-          data.message ||
-            "Password reset is not available. The backend reset endpoint may not be set up."
-        );
-        return;
+      await sendPasswordResetEmail(auth, cleanEmail);
+      setMessage("Reset email sent. Check your inbox and spam folder.");
+    } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        setMessage("No account exists with that email.");
+      } else if (error.code === "auth/invalid-email") {
+        setMessage("Enter a valid email address.");
+      } else {
+        setMessage(error.message || "Could not send the reset email.");
       }
-
-      setMessage(
-        data.message ||
-          "If an account exists for that email, password reset instructions have been sent."
-      );
-    } catch {
-      setMessage(
-        "Cannot connect to the server. Check that the backend is running."
-      );
     } finally {
       setResetLoading(false);
     }
@@ -115,13 +91,9 @@ export default function SignIn({ onRegister, onLogin }) {
           background: #242424;
           font-family: "DM Sans", sans-serif;
         }
-
         .sb-login-page *,
         .sb-login-page *::before,
-        .sb-login-page *::after {
-          box-sizing: border-box;
-        }
-
+        .sb-login-page *::after { box-sizing: border-box; }
         .sb-login-header {
           width: 100%;
           min-height: 100px;
@@ -130,9 +102,8 @@ export default function SignIn({ onRegister, onLogin }) {
           align-items: center;
           justify-content: space-between;
           gap: 20px;
-          border-bottom: 1px solid rgba(255, 255, 255, .08);
+          border-bottom: 1px solid rgba(255,255,255,.08);
         }
-
         .sb-login-brand {
           display: block;
           width: 220px;
@@ -140,7 +111,6 @@ export default function SignIn({ onRegister, onLogin }) {
           height: auto;
           object-fit: contain;
         }
-
         .sb-login-create {
           display: flex;
           align-items: center;
@@ -150,12 +120,7 @@ export default function SignIn({ onRegister, onLogin }) {
           font-size: 10px;
           letter-spacing: 1px;
         }
-
-        .sb-login-page button {
-          font: inherit;
-          cursor: pointer;
-        }
-
+        .sb-login-page button { font: inherit; cursor: pointer; }
         .sb-login-create button {
           min-height: 40px;
           padding: 0 16px;
@@ -167,12 +132,7 @@ export default function SignIn({ onRegister, onLogin }) {
           letter-spacing: 1px;
           white-space: nowrap;
         }
-
-        .sb-login-create button:hover {
-          color: #ff766b;
-          border-color: #f04438;
-        }
-
+        .sb-login-create button:hover { color: #ff766b; border-color: #f04438; }
         .sb-login-main {
           flex: 1;
           width: 100%;
@@ -180,16 +140,14 @@ export default function SignIn({ onRegister, onLogin }) {
           display: grid;
           place-items: center;
         }
-
         .sb-login-card {
           position: relative;
           width: min(100%, 520px);
           padding: clamp(22px, 5vw, 38px);
           background: #202020;
           border: 1px solid #363636;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+          box-shadow: 0 20px 60px rgba(0,0,0,.25);
         }
-
         .sb-login-card::before {
           position: absolute;
           top: 38px;
@@ -199,7 +157,6 @@ export default function SignIn({ onRegister, onLogin }) {
           background: #f04438;
           content: "";
         }
-
         .sb-login-title {
           display: flex;
           align-items: center;
@@ -207,7 +164,6 @@ export default function SignIn({ onRegister, onLogin }) {
           padding-bottom: 24px;
           border-bottom: 1px solid #363636;
         }
-
         .sb-login-icon {
           flex: 0 0 120px;
           width: 120px;
@@ -215,7 +171,6 @@ export default function SignIn({ onRegister, onLogin }) {
           object-fit: contain;
           background: #141414;
         }
-
         .sb-login-eyebrow {
           margin: 0 0 10px;
           color: #f04438;
@@ -223,7 +178,6 @@ export default function SignIn({ onRegister, onLogin }) {
           font-weight: 700;
           letter-spacing: 2px;
         }
-
         .sb-login-title h1 {
           margin: 0;
           color: #f4f4f4;
@@ -232,13 +186,7 @@ export default function SignIn({ onRegister, onLogin }) {
           line-height: 1.08;
           letter-spacing: -1px;
         }
-
-        .sb-login-form {
-          display: grid;
-          gap: 18px;
-          padding-top: 24px;
-        }
-
+        .sb-login-form { display: grid; gap: 18px; padding-top: 24px; }
         .sb-login-field label {
           display: block;
           margin-bottom: 8px;
@@ -247,7 +195,6 @@ export default function SignIn({ onRegister, onLogin }) {
           font-weight: 700;
           letter-spacing: 1.5px;
         }
-
         .sb-login-field input {
           width: 100%;
           height: 48px;
@@ -258,19 +205,9 @@ export default function SignIn({ onRegister, onLogin }) {
           outline: none;
           font: inherit;
         }
-
-        .sb-login-field input:focus {
-          border-color: #f04438;
-        }
-
-        .sb-login-password {
-          position: relative;
-        }
-
-        .sb-login-password input {
-          padding-right: 74px;
-        }
-
+        .sb-login-field input:focus { border-color: #f04438; }
+        .sb-login-password { position: relative; }
+        .sb-login-password input { padding-right: 74px; }
         .sb-login-show {
           position: absolute;
           top: 50%;
@@ -284,7 +221,6 @@ export default function SignIn({ onRegister, onLogin }) {
           font-weight: 700 !important;
           letter-spacing: 1px;
         }
-
         .sb-login-forgot {
           justify-self: end;
           margin-top: -10px;
@@ -294,16 +230,9 @@ export default function SignIn({ onRegister, onLogin }) {
           border: 0;
           font-size: 11px !important;
         }
-
-        .sb-login-forgot:hover {
-          color: #ff766b;
-        }
-
-        .sb-login-forgot:disabled {
-          opacity: .65;
-          cursor: wait;
-        }
-
+        .sb-login-forgot:hover { color: #ff766b; }
+        .sb-login-forgot:disabled,
+        .sb-login-submit:disabled { opacity: .65; cursor: wait; }
         .sb-login-submit {
           min-height: 50px;
           padding: 12px 16px;
@@ -314,23 +243,13 @@ export default function SignIn({ onRegister, onLogin }) {
           font-weight: 700 !important;
           letter-spacing: 1.5px;
         }
-
-        .sb-login-submit:hover:not(:disabled) {
-          background: #d9362c;
-        }
-
-        .sb-login-submit:disabled {
-          opacity: .65;
-          cursor: wait;
-        }
-
+        .sb-login-submit:hover:not(:disabled) { background: #d9362c; }
         .sb-login-message {
           margin: 0;
           color: #f5b2a9;
           font-size: 13px;
           line-height: 1.5;
         }
-
         .sb-login-divider {
           display: flex;
           align-items: center;
@@ -339,7 +258,6 @@ export default function SignIn({ onRegister, onLogin }) {
           font-size: 9px;
           letter-spacing: 1.5px;
         }
-
         .sb-login-divider::before,
         .sb-login-divider::after {
           flex: 1;
@@ -347,7 +265,6 @@ export default function SignIn({ onRegister, onLogin }) {
           background: #363636;
           content: "";
         }
-
         .sb-login-google {
           min-height: 46px;
           color: #f4f4f4;
@@ -357,18 +274,13 @@ export default function SignIn({ onRegister, onLogin }) {
           font-weight: 700 !important;
           letter-spacing: 1px;
         }
-
-        .sb-login-google:hover {
-          border-color: #f04438;
-        }
-
+        .sb-login-google:hover { border-color: #f04438; }
         .sb-login-register {
           margin: 2px 0 0;
           color: #aaa097;
           text-align: center;
           font-size: 12px;
         }
-
         .sb-login-register button {
           padding: 0;
           color: #ff766b;
@@ -376,53 +288,24 @@ export default function SignIn({ onRegister, onLogin }) {
           border: 0;
           font-size: inherit !important;
         }
-
         .sb-login-footer {
           display: flex;
           justify-content: space-between;
           gap: 14px;
           padding: 18px clamp(20px, 5vw, 64px);
-          border-top: 1px solid rgba(255, 255, 255, .08);
+          border-top: 1px solid rgba(255,255,255,.08);
           color: #77716b;
           font-size: 8px;
           letter-spacing: 1px;
         }
-
         @media (max-width: 520px) {
-          .sb-login-header {
-            min-height: 82px;
-            padding: 14px 16px;
-          }
-
-          .sb-login-brand {
-            width: 170px;
-          }
-
-          .sb-login-create {
-            gap: 8px;
-            font-size: 8px;
-          }
-
-          .sb-login-create button {
-            min-height: 36px;
-            padding: 0 9px;
-            font-size: 8px;
-          }
-
-          .sb-login-title {
-            align-items: flex-start;
-            gap: 14px;
-          }
-
-          .sb-login-icon {
-            flex-basis: 82px;
-            width: 82px;
-            height: 82px;
-          }
-
-          .sb-login-footer span:nth-child(2) {
-            display: none;
-          }
+          .sb-login-header { min-height: 82px; padding: 14px 16px; }
+          .sb-login-brand { width: 170px; }
+          .sb-login-create { gap: 8px; font-size: 8px; }
+          .sb-login-create button { min-height: 36px; padding: 0 9px; font-size: 8px; }
+          .sb-login-title { align-items: flex-start; gap: 14px; }
+          .sb-login-icon { flex-basis: 82px; width: 82px; height: 82px; }
+          .sb-login-footer span:nth-child(2) { display: none; }
         }
       `}</style>
 
@@ -432,7 +315,6 @@ export default function SignIn({ onRegister, onLogin }) {
           alt="Second Brain"
           className="sb-login-brand"
         />
-
         <div className="sb-login-create">
           <span>NEW TO SECOND BRAIN?</span>
           <button type="button" onClick={onRegister}>
@@ -504,11 +386,7 @@ export default function SignIn({ onRegister, onLogin }) {
               {resetLoading ? "Sending reset link…" : "Forgot password?"}
             </button>
 
-            <button
-              className="sb-login-submit"
-              type="submit"
-              disabled={loading}
-            >
+            <button className="sb-login-submit" type="submit" disabled={loading}>
               {loading ? "SIGNING IN…" : "SIGN IN"}
             </button>
 
