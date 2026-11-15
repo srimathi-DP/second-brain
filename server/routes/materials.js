@@ -1,7 +1,9 @@
+
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const { PDFParse } = require("pdf-parse");
+const mammoth = require("mammoth");
 const fs = require("fs");
 const Material = require("../models/Material");
 
@@ -171,9 +173,16 @@ router.get("/:id/text", async (req, res) => {
       } finally {
         await parser.destroy();
       }
+    } else if (extension === ".docx") {
+      const result = await mammoth.extractRawText({ path: filePath });
+      extractedText = result.value || "";
+    } else if (extension === ".doc") {
+      return res.status(400).json({
+        message: "Old .doc files are not supported. Please save the file as .docx and upload again.",
+      });
     } else {
       return res.status(400).json({
-        message: "Text extraction currently supports TXT and PDF files only.",
+        message: "Text extraction currently supports TXT, PDF and DOCX files only.",
       });
     }
 
