@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import "../materials.css";
 const SERVER_URL =
@@ -22,6 +21,18 @@ function Materials() {
   useEffect(() => {
     loadSavedMaterials();
   }, []);
+
+  // While audio/video is being transcribed, refresh the list every few seconds.
+  const hasProcessing = savedMaterials.some(
+    (material) => material.textStatus === "processing"
+  );
+
+  useEffect(() => {
+    if (!hasProcessing) return undefined;
+
+    const timer = setInterval(loadSavedMaterials, 5000);
+    return () => clearInterval(timer);
+  }, [hasProcessing]);
 
   async function loadSavedMaterials() {
     try {
@@ -91,8 +102,8 @@ function Materials() {
 
       if (!allowedExtensions.includes(extension)) {
         invalidFiles.push(file.name);
-      } else if (file.size > 50 * 1024 * 1024) {
-        invalidFiles.push(`${file.name} (over 50 MB)`);
+      } else if (file.size > 200 * 1024 * 1024) {
+        invalidFiles.push(`${file.name} (over 200 MB)`);
       } else if (isAlreadySaved(file)) {
         duplicateFiles.push(file.name);
       } else {
@@ -483,6 +494,10 @@ function Materials() {
                     <span>
                       {getFileType(material.originalName)} ·{" "}
                       {formatSize(material.fileSize)}
+                      {material.textStatus === "processing" &&
+                        " · Transcribing…"}
+                      {material.textStatus === "failed" &&
+                        " · Text extraction failed"}
                     </span>
                   </div>
 

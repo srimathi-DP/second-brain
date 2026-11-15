@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const materialSchema = new mongoose.Schema(
@@ -29,13 +28,19 @@ const materialSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    // "processing"  -> audio/video is being transcribed in the background
     // "ready"       -> text was extracted and saved
-    // "unsupported" -> file type has no text extraction (audio, video, .doc)
-    // "failed"      -> extraction was attempted but errored
+    // "unsupported" -> file type has no text extraction (.doc, etc.)
+    // "failed"      -> extraction/transcription was attempted but errored
     textStatus: {
       type: String,
-      enum: ["ready", "unsupported", "failed"],
+      enum: ["processing", "ready", "unsupported", "failed"],
       default: "failed",
+    },
+    // Short, user-friendly reason shown when textStatus is "failed".
+    textError: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
