@@ -1,8 +1,7 @@
-
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-const pdfParse = require("pdf-parse");
+const { PDFParse } = require("pdf-parse");
 const fs = require("fs");
 const Material = require("../models/Material");
 
@@ -164,8 +163,14 @@ router.get("/:id/text", async (req, res) => {
       extractedText = fs.readFileSync(filePath, "utf8");
     } else if (extension === ".pdf") {
       const buffer = fs.readFileSync(filePath);
-      const parsed = await pdfParse(buffer);
-      extractedText = parsed.text || "";
+      const parser = new PDFParse({ data: buffer });
+
+      try {
+        const parsed = await parser.getText();
+        extractedText = parsed.text || "";
+      } finally {
+        await parser.destroy();
+      }
     } else {
       return res.status(400).json({
         message: "Text extraction currently supports TXT and PDF files only.",
